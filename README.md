@@ -74,14 +74,6 @@ npx nx serve pet-store-web
 apps/
 ├── pet-store-web         # Angular frontend app
 └── pet-store-backend     # NestJS backend app
-
-libs/
-├── data-access           # Shared GraphQL types, DTOs
-├── ui                    # Reusable Angular UI components
-└── utils                 # Utility functions for backend/frontend
-
-prisma/
-└── schema.prisma         # Prisma schema definition
 ```
 
 ---
@@ -130,4 +122,5 @@ Pull requests are welcome! For major changes, please open an issue first to disc
 
 ## 📬 Contact
 
-Created by [Your Name](https://github.com/your-username) – feel free to reach out!
+Created by **Nikesh Chithambaram**  
+[LinkedIn](https://www.linkedin.com/in/nikeshchithambaram/) • [GitHub](https://github.com/cnikesh)
