@@ -1,109 +1,133 @@
-# PetStore
+# 🐾 Pet Store E-Commerce Application
 
-<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
+An end-to-end online pet store e-commerce platform built using **Nx monorepo**, with a **NestJS** backend and **Angular** frontend. Features include product browsing, secure checkout with **Stripe**, and user authentication/authorization via **Google Firebase**. Built with modern technologies including **PostgreSQL**, **Prisma ORM**, and **GraphQL**.
 
-✨ Your new, shiny [Nx workspace](https://nx.dev) is ready ✨.
+---
 
-[Learn more about this workspace setup and its capabilities](https://nx.dev/nx-api/js?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
+## 🛠️ Tech Stack
 
-## Generate a library
+### 🔗 Monorepo:
+- [Nx](https://nx.dev/) - Build system and monorepo tool
 
-```sh
-npx nx g @nx/js:lib packages/pkg1 --publishable --importPath=@my-org/pkg1
+### 🌐 Frontend:
+- [Angular](https://angular.io/) - Web UI framework
+
+### 🧠 Backend:
+- [NestJS](https://nestjs.com/) - Node.js framework
+- [GraphQL](https://graphql.org/) - API query language
+- [Prisma](https://www.prisma.io/) - ORM for PostgreSQL
+- [PostgreSQL](https://www.postgresql.org/) - Relational Database
+
+### 💳 Payments:
+- [Stripe](https://stripe.com/) - Payment gateway
+
+### 🔐 Authentication:
+- [Google Firebase](https://firebase.google.com/) - Auth and user management
+
+---
+
+## 🚀 Getting Started
+
+### 1. Clone the repository
+```bash
+git clone https://github.com/your-username/pet-store.git
+cd pet-store
 ```
 
-## Run tasks
-
-To build the library use:
-
-```sh
-npx nx build pkg1
+### 2. Install dependencies
+```bash
+npm install
 ```
 
-To run any task with Nx use:
+### 3. Setup Environment Variables
 
-```sh
-npx nx <target> <project-name>
+Create `.env` files for both backend and frontend apps as needed with Firebase, PostgreSQL, Stripe, and other credentials.
+
+#### Example `.env` for backend:
+```
+DATABASE_URL="postgresql://username:password@localhost:5432/petstore"
+FIREBASE_PROJECT_ID="your-firebase-project-id"
+FIREBASE_CLIENT_EMAIL="your-client-email"
+FIREBASE_PRIVATE_KEY="your-private-key"
+STRIPE_SECRET_KEY="your-stripe-secret-key"
 ```
 
-These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.
+---
 
-[More about running tasks in the docs &raquo;](https://nx.dev/features/run-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+## 📦 Run the Application
 
-## Versioning and releasing
-
-To version and release the library use
-
-```
-npx nx release
+### 🔧 Run Backend (NestJS)
+```bash
+npx nx serve pet-store-backend
 ```
 
-Pass `--dry-run` to see what would happen without actually releasing the library.
-
-[Learn more about Nx release &raquo;](hhttps://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Keep TypeScript project references up to date
-
-Nx automatically updates TypeScript [project references](https://www.typescriptlang.org/docs/handbook/project-references.html) in `tsconfig.json` files to ensure they remain accurate based on your project dependencies (`import` or `require` statements). This sync is automatically done when running tasks such as `build` or `typecheck`, which require updated references to function correctly.
-
-To manually trigger the process to sync the project graph dependencies information to the TypeScript project references, run the following command:
-
-```sh
-npx nx sync
+### 🌐 Run Frontend (Angular)
+```bash
+npx nx serve pet-store-web
 ```
 
-You can enforce that the TypeScript project references are always in the correct state when running in CI by adding a step to your CI job configuration that runs the following command:
+---
 
-```sh
-npx nx sync:check
+## 📁 Project Structure (Nx Monorepo)
+
+```
+apps/
+├── pet-store-web         # Angular frontend app
+└── pet-store-backend     # NestJS backend app
+
+libs/
+├── data-access           # Shared GraphQL types, DTOs
+├── ui                    # Reusable Angular UI components
+└── utils                 # Utility functions for backend/frontend
+
+prisma/
+└── schema.prisma         # Prisma schema definition
 ```
 
-[Learn more about nx sync](https://nx.dev/reference/nx-commands#sync)
+---
 
-## Set up CI!
+## ⚙️ Features
 
-### Step 1
+- ✅ User Authentication with Google Firebase
+- 🐶 Product Listings (Pet supplies, animals, etc.)
+- 📦 Shopping Cart & Checkout
+- 💳 Secure Payments via Stripe
+- 📊 Admin & User Roles
+- 🔄 Realtime updates using GraphQL subscriptions
+- 🧪 Modular monorepo setup for scalability
 
-To connect to Nx Cloud, run the following command:
+---
 
-```sh
-npx nx connect
-```
+## 🧪 Development Tips
 
-Connecting to Nx Cloud ensures a [fast and scalable CI](https://nx.dev/ci/intro/why-nx-cloud?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) pipeline. It includes features such as:
+- Use Prisma CLI to generate types:
+  ```bash
+  npx prisma generate
+  ```
 
-- [Remote caching](https://nx.dev/ci/features/remote-cache?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Task distribution across multiple machines](https://nx.dev/ci/features/distribute-task-execution?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Automated e2e test splitting](https://nx.dev/ci/features/split-e2e-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Task flakiness detection and rerunning](https://nx.dev/ci/features/flaky-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+- Run migrations:
+  ```bash
+  npx prisma migrate dev
+  ```
 
-### Step 2
+- Firebase setup should include:
+  - Authentication (Google sign-in enabled)
+  - Firestore or Realtime Database for extended user/session data (optional)
 
-Use the following command to configure a CI workflow for your workspace:
+---
 
-```sh
-npx nx g ci-workflow
-```
+## 🧾 License
 
-[Learn more about Nx on CI](https://nx.dev/ci/intro/ci-with-nx#ready-get-started-with-your-provider?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+This project is licensed under the [MIT License](LICENSE).
 
-## Install Nx Console
+---
 
-Nx Console is an editor extension that enriches your developer experience. It lets you run tasks, generate code, and improves code autocompletion in your IDE. It is available for VSCode and IntelliJ.
+## 🙌 Contributions
 
-[Install Nx Console &raquo;](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+Pull requests are welcome! For major changes, please open an issue first to discuss what you’d like to change.
 
-## Useful links
+---
 
-Learn more:
+## 📬 Contact
 
-- [Learn more about this workspace setup](https://nx.dev/nx-api/js?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects)
-- [Learn about Nx on CI](https://nx.dev/ci/intro/ci-with-nx?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Releasing Packages with Nx release](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [What are Nx plugins?](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-And join the Nx community:
-- [Discord](https://go.nx.dev/community)
-- [Follow us on X](https://twitter.com/nxdevtools) or [LinkedIn](https://www.linkedin.com/company/nrwl)
-- [Our Youtube channel](https://www.youtube.com/@nxdevtools)
-- [Our blog](https://nx.dev/blog?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+Created by [Your Name](https://github.com/your-username) – feel free to reach out!
