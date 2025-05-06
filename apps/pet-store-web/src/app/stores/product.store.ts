@@ -2,11 +2,24 @@ import { inject } from '@angular/core'
 import {patchState, signalStore, withMethods, withState} from '@ngrx/signals'
 import { Product } from '@prisma/client'
 import { Apollo, gql } from 'apollo-angular'
-import { tap } from 'rxjs'
+import { catchError, EMPTY, map, tap } from 'rxjs'
 
 const GET_PRODUCTS = gql`
 query GetProducts{
   products{
+    id
+    name
+    description
+    price
+    image
+    stripePriceId
+    
+  }
+}
+`
+const SEARCH_PRODUCTS = gql`
+query SearchProduct($searchTerm: String!){
+  searchProducts(term: $searchTerm){
     id
     name
     description
@@ -37,7 +50,7 @@ export const ProductStore = signalStore({
 withState(initialState),
 withMethods((store, apollo = inject(Apollo)) => ({
     loadProducts(){
-        patchState(store, {loading:true});
+        patchState(store, {loading:true, error: null});
         apollo.watchQuery<{products: Product[]}>({
             query: GET_PRODUCTS
         }).valueChanges.pipe(
@@ -52,6 +65,24 @@ withMethods((store, apollo = inject(Apollo)) => ({
                 ),
             })
         ).subscribe()
+    },
+    searchProducts(term: string){
+        patchState(store, {loading:true, error: null});
+        apollo.query<{searchProducts: Product[]}>({
+            query: SEARCH_PRODUCTS,
+            variables: {
+                searchTerm: term
+            }
+        }).pipe(
+            map(({ data }) =>
+              patchState(store, { products: data.searchProducts, loading: false })
+            ),
+            catchError((error) => {
+              patchState(store, { error: error.message, loading: false });
+              return EMPTY;
+            })
+          )
+          .subscribe();
     }
 }))
 )

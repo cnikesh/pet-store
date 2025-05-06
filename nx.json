@@ -18,7 +18,9 @@
     {
       "plugin": "@nx/js/typescript",
       "options": {
-        "typecheck": { "targetName": "typecheck" },
+        "typecheck": {
+          "targetName": "typecheck"
+        },
         "build": {
           "targetName": "build",
           "configName": "tsconfig.lib.json",
@@ -37,22 +39,38 @@
         "watchDepsTargetName": "watch-deps"
       }
     },
-    { "plugin": "@nx/eslint/plugin", "options": { "targetName": "lint" } },
+    {
+      "plugin": "@nx/eslint/plugin",
+      "options": {
+        "targetName": "lint"
+      }
+    },
     {
       "plugin": "@nx/jest/plugin",
-      "options": { "targetName": "test" },
+      "options": {
+        "targetName": "test"
+      },
       "exclude": ["apps/pet-store-backend-e2e/**/*"]
     },
-    { "plugin": "@nx/playwright/plugin", "options": { "targetName": "e2e" } }
+    {
+      "plugin": "@nx/playwright/plugin",
+      "options": {
+        "targetName": "e2e"
+      }
+    }
   ],
   "targetDefaults": {
-    "test": { "dependsOn": ["^build"] },
+    "test": {
+      "dependsOn": ["^build"]
+    },
     "@angular-devkit/build-angular:application": {
       "cache": true,
       "dependsOn": ["^build"],
       "inputs": ["production", "^production"]
     },
-    "e2e-ci--**/*": { "dependsOn": ["^build"] }
+    "e2e-ci--**/*": {
+      "dependsOn": ["^build"]
+    }
   },
   "generators": {
     "@nx/angular:application": {
@@ -61,7 +79,9 @@
       "style": "scss",
       "unitTestRunner": "jest"
     },
-    "@nx/angular:component": { "style": "scss" }
+    "@nx/angular:component": {
+      "style": "scss"
+    }
   },
   "nxCloudId": "680d0f289c76d63ce41eb453"
 }
