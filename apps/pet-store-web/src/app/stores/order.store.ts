@@ -52,7 +52,6 @@ export const OrderStore = signalStore(
   withState(() => initialState),
   withMethods((store, apollo = inject(Apollo)) => ({
     getOrder(id: string) {
-        console.log(id)
       patchState(store, { error: null });
       return apollo
         .query<{ order: OrderWithItems }>({
