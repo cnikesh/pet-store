@@ -138,7 +138,6 @@ export class AuthService implements OnDestroy {
     } else if (this.idToken) {
       token = this.idToken;
     }
-    console.log('token from getToken() method:', token);
     return token;
   }
 
